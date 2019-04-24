@@ -1,10 +1,12 @@
 import React from 'react';
 import './Button.css';
 
-class Button extends React.Component{
-  render(){
+class Button extends React.Component {
+  render() {
     return (
-      null
+      <div className="Button">
+        <button>Começar</button>
+      </div>
     );
   }
 }

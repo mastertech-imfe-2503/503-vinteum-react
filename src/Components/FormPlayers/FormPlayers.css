@@ -1,0 +1,14 @@
+.FormPlayers .center-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.FormPlayers .first-page button{
+  margin-top: 20px;
+}
+
+.FormPlayers input::placeholder {
+  color: red;
+  font-weight: bolder;
+}
