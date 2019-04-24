@@ -1,10 +1,12 @@
 import React from 'react';
 import './Title.css';
 
-class Title extends React.Component{
-  render(){
+class Title extends React.Component {
+  render() {
     return (
-      null
+      <div className="Title">
+        <h1>21</h1>
+      </div>
     );
   }
 }
