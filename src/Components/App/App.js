@@ -16,6 +16,10 @@ class App extends React.Component {
       playing: {
         player1: true,
         player2: false
+      },
+      score: {
+        player1: 0,
+        player2: 0
       }
     }
   }
@@ -71,10 +75,12 @@ class App extends React.Component {
           <Player
             playerName={this.state.names.player1}
             playing={this.state.playing.player1}
+            score={this.state.score.player1}
           />
           <Player
             playerName={this.state.names.player2}
             playing={this.state.playing.player2}
+            score={this.state.score.player2}
           />
         </div>
       );

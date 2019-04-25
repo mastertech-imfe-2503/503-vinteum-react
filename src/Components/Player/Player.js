@@ -8,7 +8,8 @@ class Player extends React.Component{
   render(){
     return (
       <div className="Player">
-        <Stats playerName={this.props.playerName}/>
+        <Stats playerName={this.props.playerName}
+        score={this.props.score}/>
         <Cards/>
         <Controls/>
       </div>
