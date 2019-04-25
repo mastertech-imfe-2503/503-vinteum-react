@@ -9,17 +9,19 @@ class App extends React.Component {
     super(props);
     this.state = {
       gameStep: 1,
-      names: {
-        player1: '',
-        player2: ''
+      player1: {
+        playing: true,
+        stats: {
+          name: '',
+          score: 0
+        }
       },
-      playing: {
-        player1: true,
-        player2: false
-      },
-      score: {
-        player1: 0,
-        player2: 0
+      player2: {
+        playing: false,
+        stats: {
+          name: '',
+          score: 0
+        }
       }
     }
   }
@@ -28,34 +30,36 @@ class App extends React.Component {
     let random = Math.random();
     if (random > 0.5) {
       return {
-        player1: this.state.names.player2,
-        player2: this.state.names.player1
+        player1: this.state.player2.stats.name,
+        player2: this.state.player1.stats.name
       }
     }
     else {
       return {
-        player1: this.state.names.player1,
-        player2: this.state.names.player2
+        player1: this.state.player1.stats.name,
+        player2: this.state.player2.stats.name
       }
     }
   }
 
   handlePlayerNameChange = event => {
-    this.setState({
-      names: {
-        ...this.state.names,
-        [event.target.name]: event.target.value
-      }
-    });
+    let newState = this.state;
+    newState[event.target.name].stats.name = event.target.value;
+    this.setState(newState);
   }
 
   handleClickFormButton = () => {
-    if (this.state.names.player1 && this.state.names.player2) {
-      let names = this.sortPlayers();
-      this.setState({
-        gameStep: 2,
-        names: names
-      });
+    if (this.state.player1.stats.name &&
+      this.state.player2.stats.name) {
+
+      let players = this.sortPlayers();
+      let newState = this.state;
+
+      newState.gameStep = 2;
+      newState.player1.stats.name = players.player1;
+      newState.player2.stats.name = players.player2;
+
+      this.setState(newState);
     }
   }
 
@@ -64,7 +68,10 @@ class App extends React.Component {
       return (
         <FormPlayers
           handleClickButton={this.handleClickFormButton}
-          playerNames={this.state.names}
+          playerNames={{
+            player1: this.state.player1.stats.name,
+            player2: this.state.player2.stats.name
+          }}
           handlePlayerNameChange={this.handlePlayerNameChange}
         />
       )
@@ -73,14 +80,10 @@ class App extends React.Component {
       return (
         <div>
           <Player
-            playerName={this.state.names.player1}
-            playing={this.state.playing.player1}
-            score={this.state.score.player1}
+            playerData={this.state.player1}
           />
           <Player
-            playerName={this.state.names.player2}
-            playing={this.state.playing.player2}
-            score={this.state.score.player2}
+            playerData={this.state.player2}
           />
         </div>
       );

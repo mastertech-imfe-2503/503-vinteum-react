@@ -5,8 +5,8 @@ class Stats extends React.Component{
   render(){
     return (
       <div className="Stats">
-        <p>{this.props.playerName}</p>
-        <p>0</p>
+        <p>{this.props.playerStats.name}</p>
+        <p>{this.props.playerStats.score}</p>
       </div>
     );
   }
