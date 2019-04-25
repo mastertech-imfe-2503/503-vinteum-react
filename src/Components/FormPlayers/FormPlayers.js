@@ -16,7 +16,7 @@ class FormPlayers extends React.Component {
             <label htmlFor="p2">2:</label>
             <input onChange={this.props.handlePlayerNameChange} value={this.props.playerNames.player2}placeholder="Digite o nome" name="player2" type="text" maxLength="15" />
           </div>
-          <Button handleClick={this.props.handleClickButton}/>
+          <Button text="Começar" handleClick={this.props.handleClickButton}/>
         </div>
       </div>
     );
