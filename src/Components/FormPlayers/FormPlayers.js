@@ -10,13 +10,13 @@ class FormPlayers extends React.Component {
           <p>JOGADORES:</p>
           <div>
             <label htmlFor="p1">1:</label>
-            <input name="p1" type="text" maxLength="15" />
+            <input onChange={this.props.handlePlayerNameChange}value={this.props.playerNames.player1} placeholder="Digite o nome" name="player1" type="text" maxLength="15" />
           </div>
           <div>
             <label htmlFor="p2">2:</label>
-            <input name="p2" type="text" maxLength="15" />
+            <input onChange={this.props.handlePlayerNameChange} value={this.props.playerNames.player2}placeholder="Digite o nome" name="player2" type="text" maxLength="15" />
           </div>
-          <Button />
+          <Button handleClick={this.props.handleClickButton}/>
         </div>
       </div>
     );
