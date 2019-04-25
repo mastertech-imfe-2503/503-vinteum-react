@@ -4,7 +4,10 @@ import './Stats.css';
 class Stats extends React.Component{
   render(){
     return (
-      null
+      <div className="Stats">
+        <p>{this.props.playerName}</p>
+        <p>0</p>
+      </div>
     );
   }
 }

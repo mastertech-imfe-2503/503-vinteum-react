@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Title from '../Title/Title';
 import FormPlayers from '../FormPlayers/FormPlayers';
+import Player from '../Player/Player';
 
 class App extends React.Component {
   constructor(props) {
@@ -11,6 +12,26 @@ class App extends React.Component {
       names: {
         player1: '',
         player2: ''
+      },
+      playing: {
+        player1: true,
+        player2: false
+      }
+    }
+  }
+
+  sortPlayers = () => {
+    let random = Math.random();
+    if (random > 0.5) {
+      return {
+        player1: this.state.names.player2,
+        player2: this.state.names.player1
+      }
+    }
+    else {
+      return {
+        player1: this.state.names.player1,
+        player2: this.state.names.player2
       }
     }
   }
@@ -26,8 +47,10 @@ class App extends React.Component {
 
   handleClickFormButton = () => {
     if (this.state.names.player1 && this.state.names.player2) {
+      let names = this.sortPlayers();
       this.setState({
-        gameStep: 2
+        gameStep: 2,
+        names: names
       });
     }
   }
@@ -43,7 +66,18 @@ class App extends React.Component {
       )
     }
     else if (this.state.gameStep === 2) {
-      return <p>Página 2</p>
+      return (
+        <div>
+          <Player
+            playerName={this.state.names.player1}
+            playing={this.state.playing.player1}
+          />
+          <Player
+            playerName={this.state.names.player2}
+            playing={this.state.playing.player2}
+          />
+        </div>
+      );
     }
     else {
       return <p>Página 3</p>
@@ -54,7 +88,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <Title />
-        { this.generatePage() }
+        {this.generatePage()}
       </div>
     );
   }

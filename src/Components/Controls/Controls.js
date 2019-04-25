@@ -1,10 +1,13 @@
 import React from 'react';
 import './Controls.css';
 
-class Controls extends React.Component{
-  render(){
+class Controls extends React.Component {
+  render() {
     return (
-      null
+      <div className="Controls">
+        <button>Mais uma!</button>
+        <button>Parar!</button>
+      </div>
     );
   }
 }

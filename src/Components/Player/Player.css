@@ -1,0 +1,14 @@
+.Player {
+  display: flex;
+  width: 80vw;
+  justify-content: space-between;
+  margin: 30px 0;
+}
+
+.Player button{
+  display: block;
+}
+
+.Player > div{
+  padding: 10px;
+}

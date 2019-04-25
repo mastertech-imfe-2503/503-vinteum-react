@@ -4,7 +4,7 @@ import './Cards.css';
 class Cards extends React.Component{
   render(){
     return (
-      null
+      <div className="Cards"></div>
     );
   }
 }
