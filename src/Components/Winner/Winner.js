@@ -4,7 +4,9 @@ import './Winner.css';
 class Winner extends React.Component{
   render(){
     return (
-      null
+      <div className="Winner">
+        {this.props.winner}
+      </div>
     );
   }
 }

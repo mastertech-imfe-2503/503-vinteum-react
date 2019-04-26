@@ -3,6 +3,7 @@ import './App.css';
 import Title from '../Title/Title';
 import FormPlayers from '../FormPlayers/FormPlayers';
 import Player from '../Player/Player';
+import Winner from '../Winner/Winner';
 
 class App extends React.Component {
   constructor(props) {
@@ -23,7 +24,8 @@ class App extends React.Component {
           name: '',
           score: 0
         }
-      }
+      },
+      winner: ''
     }
   }
 
@@ -44,8 +46,20 @@ class App extends React.Component {
       newState.player2.playing = true;
     }
     else if (player === "player2" && score >= 21) {
+      let score1 = Math.abs(this.state.player1.stats.score - 21);
+      let score2 = Math.abs(this.state.player2.stats.score - 21);
+      
       newState.player2.playing = false;
-      newState.gameStep = 3;
+      
+      if(score1 === score2){
+        newState.winner = "empate"
+      }
+      else if(score1 < score2){
+        newState.winner = `vencedor: ${this.state.player1.stats.name}`;
+      }
+      else{
+        newState.winner = `vencedor: ${this.state.player2.stats.name}`;
+      }
     }
 
     this.setState(newState);
@@ -99,9 +113,20 @@ class App extends React.Component {
 
   endGame = () => {
     let newState = this.state;
+    let score1 = Math.abs(this.state.player1.stats.score - 21);
+    let score2 = Math.abs(this.state.player2.stats.score - 21);
 
     newState.player2.playing = false;
-    newState.gameStep = 3;
+
+    if(score1 === score2){
+      newState.winner = "empate"
+    }
+    else if(score1 < score2){
+      newState.winner = `vencedor: ${this.state.player1.stats.name}`;
+    }
+    else{
+      newState.winner = `vencedor: ${this.state.player2.stats.name}`;
+    }
 
     this.setState(newState);
   }
@@ -119,7 +144,7 @@ class App extends React.Component {
         />
       )
     }
-    else if (this.state.gameStep === 2) {
+    else {
       return (
         <div>
           <Player
@@ -136,11 +161,9 @@ class App extends React.Component {
             updateScore={this.updateScore}
             handleStop={this.endGame}
           />
+          <Winner winner={this.state.winner}/>
         </div>
       );
-    }
-    else {
-      return <p>Página 3</p>
     }
   }
 
