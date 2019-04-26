@@ -6,7 +6,7 @@ class Controls extends React.Component {
   render() {
     return (
       <div className="Controls">
-        <Button text="Mais uma!"/>
+        <Button handleClick={this.props.drawCard} text="Mais uma!"/>
         <Button text="Parar"/>
       </div>
     );

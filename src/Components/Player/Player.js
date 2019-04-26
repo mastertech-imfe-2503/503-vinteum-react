@@ -37,12 +37,23 @@ class Player extends React.Component{
     this.props.updateScore(score, this.props.playerId);
   }
 
+  drawCard = () => {
+    fetch(`https://deckofcardsapi.com/api/deck/${this.props.deckId}/draw/?count=1`)
+    .then(response => response.json())
+    .then(json => {
+      let newState = this.state;
+      newState.hand.push(json.cards[0])
+      this.setState(newState);
+      this.calculateScore();
+    })
+  }
+
   render(){
     return (
       <div className="Player">
         <Stats playerStats={this.props.playerData.stats} />
         <Cards cards={this.state.hand}/>
-        <Controls/>
+        <Controls drawCard={this.props.playerData.playing ? this.drawCard : ()=>alert("NÃO É A SUA VEZ OW")}/>
       </div>
     );
   }
