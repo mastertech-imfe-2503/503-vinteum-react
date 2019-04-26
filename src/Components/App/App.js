@@ -35,6 +35,12 @@ class App extends React.Component {
     })
   }
 
+  updateScore = (score, player) => {
+    let newState = this.state;
+    newState[player].stats.score = score;
+    this.setState(newState);
+  }
+
   sortPlayers = () => {
     let random = Math.random();
     if (random > 0.5) {
@@ -91,10 +97,14 @@ class App extends React.Component {
           <Player
             playerData={this.state.player1}
             deckId={this.state.deckId}
+            playerId="player1"
+            updateScore={this.updateScore}
           />
           <Player
             playerData={this.state.player2}
             deckId={this.state.deckId}
+            playerId="player2"
+            updateScore={this.updateScore}
           />
         </div>
       );
