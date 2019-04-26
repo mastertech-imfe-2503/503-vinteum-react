@@ -9,7 +9,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      gameStep: 1,
+      hasStarted: false,
       deckId: null,
       player1: {
         playing: true,
@@ -37,6 +37,21 @@ class App extends React.Component {
       })
   }
 
+  determineWinner = () => {
+    let score1 = Math.abs(this.state.player1.stats.score - 21);
+    let score2 = Math.abs(this.state.player2.stats.score - 21);
+
+    if(score1 === score2){
+      return "empate";
+    }
+    else if(score1 < score2){
+      return `vencedor: ${this.state.player1.stats.name}`;
+    }
+    else{
+      return `vencedor: ${this.state.player2.stats.name}`;
+    }
+  }
+
   updateScore = (score, player) => {
     let newState = this.state;
     newState[player].stats.score = score;
@@ -46,20 +61,8 @@ class App extends React.Component {
       newState.player2.playing = true;
     }
     else if (player === "player2" && score >= 21) {
-      let score1 = Math.abs(this.state.player1.stats.score - 21);
-      let score2 = Math.abs(this.state.player2.stats.score - 21);
-      
+      newState.winner = this.determineWinner();
       newState.player2.playing = false;
-      
-      if(score1 === score2){
-        newState.winner = "empate"
-      }
-      else if(score1 < score2){
-        newState.winner = `vencedor: ${this.state.player1.stats.name}`;
-      }
-      else{
-        newState.winner = `vencedor: ${this.state.player2.stats.name}`;
-      }
     }
 
     this.setState(newState);
@@ -94,7 +97,7 @@ class App extends React.Component {
       let players = this.sortPlayers();
       let newState = this.state;
 
-      newState.gameStep = 2;
+      newState.hasStarted = true;
       newState.player1.stats.name = players.player1;
       newState.player2.stats.name = players.player2;
 
@@ -113,40 +116,29 @@ class App extends React.Component {
 
   endGame = () => {
     let newState = this.state;
-    let score1 = Math.abs(this.state.player1.stats.score - 21);
-    let score2 = Math.abs(this.state.player2.stats.score - 21);
 
     newState.player2.playing = false;
-
-    if(score1 === score2){
-      newState.winner = "empate"
-    }
-    else if(score1 < score2){
-      newState.winner = `vencedor: ${this.state.player1.stats.name}`;
-    }
-    else{
-      newState.winner = `vencedor: ${this.state.player2.stats.name}`;
-    }
+    newState.winner = this.determineWinner();
 
     this.setState(newState);
   }
 
-  generatePage = () => {
-    if (this.state.gameStep === 1) {
-      return (
-        <FormPlayers
-          handleClickButton={this.handleClickFormButton}
-          playerNames={{
-            player1: this.state.player1.stats.name,
-            player2: this.state.player2.stats.name
-          }}
-          handlePlayerNameChange={this.handlePlayerNameChange}
-        />
-      )
-    }
-    else {
-      return (
-        <div>
+  render() {
+    return (
+      <div className="App">
+        <Title />
+        {!this.state.hasStarted 
+        ?
+         <FormPlayers
+         handleClickButton={this.handleClickFormButton}
+         playerNames={{
+           player1: this.state.player1.stats.name,
+           player2: this.state.player2.stats.name
+         }}
+         handlePlayerNameChange={this.handlePlayerNameChange}
+       /> 
+       :
+       <div>
           <Player
             playerData={this.state.player1}
             deckId={this.state.deckId}
@@ -163,15 +155,7 @@ class App extends React.Component {
           />
           <Winner winner={this.state.winner}/>
         </div>
-      );
-    }
-  }
-
-  render() {
-    return (
-      <div className="App">
-        <Title />
-        {this.generatePage()}
+        }
       </div>
     );
   }
