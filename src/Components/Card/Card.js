@@ -4,7 +4,9 @@ import './Card.css';
 class Card extends React.Component{
   render(){
     return (
-      null
+      <div className="Card">
+        <img src={this.props.image} alt={this.props.alt}/>
+      </div>
     );
   }
 }

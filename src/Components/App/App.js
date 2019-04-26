@@ -9,6 +9,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       gameStep: 1,
+      deckId: null,
       player1: {
         playing: true,
         stats: {
@@ -24,6 +25,14 @@ class App extends React.Component {
         }
       }
     }
+  }
+
+  componentDidMount(){
+    fetch("http://deckofcardsapi.com/api/deck/new/shuffle/")
+    .then(response => response.json())
+    .then(json => {
+      this.setState({deckId: json.deck_id});
+    })
   }
 
   sortPlayers = () => {
@@ -81,9 +90,11 @@ class App extends React.Component {
         <div>
           <Player
             playerData={this.state.player1}
+            deckId={this.state.deckId}
           />
           <Player
             playerData={this.state.player2}
+            deckId={this.state.deckId}
           />
         </div>
       );
