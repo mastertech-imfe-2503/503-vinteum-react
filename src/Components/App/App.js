@@ -27,17 +27,27 @@ class App extends React.Component {
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     fetch("http://deckofcardsapi.com/api/deck/new/shuffle/")
-    .then(response => response.json())
-    .then(json => {
-      this.setState({deckId: json.deck_id});
-    })
+      .then(response => response.json())
+      .then(json => {
+        this.setState({ deckId: json.deck_id });
+      })
   }
 
   updateScore = (score, player) => {
     let newState = this.state;
     newState[player].stats.score = score;
+
+    if (player === "player1" && score >= 21) {
+      newState.player1.playing = false;
+      newState.player2.playing = true;
+    }
+    else if (player === "player2" && score >= 21) {
+      newState.player2.playing = false;
+      newState.gameStep = 3;
+    }
+
     this.setState(newState);
   }
 
