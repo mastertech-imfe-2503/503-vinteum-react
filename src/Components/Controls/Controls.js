@@ -7,7 +7,7 @@ class Controls extends React.Component {
     return (
       <div className="Controls">
         <Button handleClick={this.props.drawCard} text="Mais uma!"/>
-        <Button text="Parar"/>
+        <Button handleClick={this.props.handleStop} text="Parar"/>
       </div>
     );
   }

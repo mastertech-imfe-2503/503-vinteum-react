@@ -78,6 +78,24 @@ class App extends React.Component {
     }
   }
 
+  changePlayer = () => {
+    let newState = this.state;
+
+    newState.player1.playing = false;
+    newState.player2.playing = true;
+
+    this.setState(newState);
+  }
+
+  endGame = () => {
+    let newState = this.state;
+
+    newState.player2.playing = false;
+    newState.gameStep = 3;
+
+    this.setState(newState);
+  }
+
   generatePage = () => {
     if (this.state.gameStep === 1) {
       return (
@@ -99,12 +117,14 @@ class App extends React.Component {
             deckId={this.state.deckId}
             playerId="player1"
             updateScore={this.updateScore}
+            handleStop={this.changePlayer}
           />
           <Player
             playerData={this.state.player2}
             deckId={this.state.deckId}
             playerId="player2"
             updateScore={this.updateScore}
+            handleStop={this.endGame}
           />
         </div>
       );

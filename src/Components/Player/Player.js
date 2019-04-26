@@ -53,7 +53,10 @@ class Player extends React.Component{
       <div className="Player">
         <Stats playerStats={this.props.playerData.stats} />
         <Cards cards={this.state.hand}/>
-        <Controls drawCard={this.props.playerData.playing ? this.drawCard : ()=>alert("NÃO É A SUA VEZ OW")}/>
+        <Controls 
+        drawCard={this.props.playerData.playing ? this.drawCard : ()=>alert("NÃO É A SUA VEZ OW")}
+        handleStop={this.props.playerData.playing ? this.props.handleStop : ()=>alert("NÃO É A SUA VEZ OW")}
+        />
       </div>
     );
   }
